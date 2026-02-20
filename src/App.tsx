@@ -3,6 +3,7 @@ import AboutPage from './routes/AboutPage';
 import ContactPage from './routes/ContactPage'; // IMPORTANTE: Ajuste o caminho conforme sua pasta
 import ProjectsPage from './routes/ProjectsPage';
 import Terminal from './routes/Terminal';
+import CelestialMap from './routes/CelestialMap';
 
 function App() {
   // Função auxiliar para controlar a cor do link ativo vs inativo
@@ -51,6 +52,8 @@ function App() {
           <Route path="/terminal" element={<Terminal />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/projects" element={<ProjectsPage/>} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/celestial-map" element={<CelestialMap />} />
         </Routes>
       </div>
     </BrowserRouter>
