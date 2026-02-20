@@ -62,7 +62,6 @@ const Terminal: React.FC = () => {
         <div className="text-[#858585]">bash</div>
       </div>
 
-      {/* Terminal Content Area */}
       <div 
         className="flex-grow p-3 overflow-y-auto custom-scrollbar" 
         onClick={() => inputRef.current?.focus()}
