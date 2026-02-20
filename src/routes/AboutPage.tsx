@@ -1,9 +1,9 @@
 import React from 'react';
-import BentoGrid from '../src/components/BentoGrid';
-import Experience from '../src/components/Experience';
-import Hero from '../src/components/Hero';
-import ProjectsHighlight from '../src/components/ProjectsHighlight';
-import TechStack from '../src/components/TechStack';
+import BentoGrid from '../components/BentoGrid';
+import Experience from '../components/Experience';
+import Hero from '../components/Hero';
+import ProjectsHighlight from '../components/ProjectsHighlight';
+import TechStack from '../components/TechStack';
 
 const AboutPage: React.FC = () => {
   return (
