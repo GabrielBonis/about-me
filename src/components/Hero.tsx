@@ -1,4 +1,5 @@
 import React from 'react';
+import minhaFoto from '../assets/sua-foto.jpg';
 
 const Hero: React.FC = () => {
   const socialIconStyle = "text-neutral-400 hover:text-white transition-all duration-300 hover:-translate-y-1";
@@ -19,7 +20,7 @@ const Hero: React.FC = () => {
         <div className="w-36 h-36 md:w-48 md:h-48 rounded-full bg-gradient-to-tl from-blue-600 to-emerald-400 p-[3px] shrink-0 shadow-2xl shadow-blue-900/30">
           <div className="w-full h-full bg-[#0a0a0a] rounded-full flex items-center justify-center overflow-hidden relative">
             <img 
-              src="src/assets/sua-foto.jpg" 
+              src={minhaFoto}
               alt="Gabriel Bonis" 
               className="w-full h-full object-cover object-center absolute inset-0 rounded-full" 
             />

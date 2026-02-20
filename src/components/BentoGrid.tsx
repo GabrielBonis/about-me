@@ -1,4 +1,5 @@
 import React from 'react';
+import petrobrasLogo from '../assets/Petrobras-Logo.wine.svg';
 
 const BentoGrid: React.FC = () => {
   return (
@@ -32,7 +33,7 @@ const BentoGrid: React.FC = () => {
         {/* Container do Logo animado */}
         <div className="bg-white/95 px-4 py-3 rounded-xl inline-flex items-center justify-center mb-6 w-fit shadow-md border border-neutral-200/50 relative z-10 group-hover:scale-105 transition-transform duration-300">
           <img 
-            src="../src/assets/Petrobras-Logo.wine.svg" 
+            src={petrobrasLogo}
             alt="Petrobras" 
             className="h-8 md:h-10 object-contain" 
           />
