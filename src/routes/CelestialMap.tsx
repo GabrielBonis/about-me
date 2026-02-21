@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 
 const GOOGLE_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -14,7 +14,7 @@ const CelestialMap: React.FC = () => {
   const [dados, setDados] = useState({
     lat: -23.5505, lon: -46.6333,
     date: new Date().toISOString().split('T')[0],
-    title: "O NASCER DE UMA ESTRELA"
+    title: ""
   });
 
   const fetchSuggestions = async (q: string) => {
