@@ -8,42 +8,38 @@ interface Project {
   techs: string[];
   featured?: boolean;
   icon?: string;
-  isTool?: boolean; // Nova flag para identificar ferramentas interativas
+  isTool?: boolean;
 }
 
 const ProjectsPage: React.FC = () => {
-  const portfolioProjects: Project[] = [
+  // Lista unificada de projetos
+  const allProjects: Project[] = [
+    {
+      id: "celestial-map",
+      title: "Celestial Map Tool",
+      description: "Ferramenta interativa que consome minha API de astronomia para renderizar mapas estelares precisos baseados em coordenadas e tempo.",
+      techs: ["FastAPI", "Python", "React", "Astronomy API"],
+      icon: "🌌",
+      isTool: true,
+      featured: true, // Destaque principal
+    },
     {
       id: "marketplace-go",
       title: "Marketplace Engine",
       description: "Sistema de alta performance inspirado no Mercado Livre. Desenvolvido em Go com Arquitetura Hexagonal, gRPC e suporte a microsserviços escaláveis.",
       techs: ["Go", "gRPC", "Docker", "Kubernetes", "Hexagonal"],
-      featured: true,
     },
     {
       id: "sp-crime-data",
       title: "Análise Criminal SP",
       description: "Pipeline de ETL para processamento de dados massivos da Secretaria de Segurança de SP, utilizando PySpark e Polars para limpeza e unificação de arquivos Parquet.",
       techs: ["PySpark", "Polars", "Python", "Data Engineering"],
-      featured: false,
     },
     {
       id: "chatsub-rag",
       title: "ChatSub RAG",
       description: "Implementação de Retrieval-Augmented Generation (RAG) integrada ao Databricks para análise inteligente de documentos e bases de dados corporativas.",
       techs: ["Python", "LLMs", "Databricks", "Vector DB"],
-      featured: false,
-    }
-  ];
-
-  const devProjects: Project[] = [
-    {
-      id: "celestial-map", // Alterado para bater com a rota interativa
-      title: "Celestial Map Tool",
-      description: "Ferramenta interativa que consome minha API de astronomia para renderizar mapas estelares precisos baseados em coordenadas e tempo.",
-      techs: ["FastAPI", "Python", "React", "Astronomy API"],
-      icon: "🌌",
-      isTool: true,
     },
     {
       id: "hexagonal-boilerplate",
@@ -55,30 +51,40 @@ const ProjectsPage: React.FC = () => {
     {
       id: "dataops-cli",
       title: "DataOps CLI",
-      description: "Ferramenta de terminal para automação de jobs no Apache Airflow e validação de contratos de dados em pipelines PySpark.",
+      description: "Ferramenta de terminal para automatizar de jobs no Apache Airflow e validação de contratos de dados em pipelines PySpark.",
       techs: ["Python", "Airflow", "CLI"],
       icon: "⚡",
     }
   ];
 
-  const ProjectCard = ({ project, isDevTool = false }: { project: Project, isDevTool?: boolean }) => {
-    // Se for uma ferramenta interativa, aponta para a rota principal da ferramenta
+  const ProjectCard = ({ project }: { project: Project }) => {
     const targetPath = project.isTool ? `/${project.id}` : `/projects/${project.id}`;
+    
+    // Apenas o Celestial Map está "pronto", o resto está em construção
+    const isUnderConstruction = project.id !== 'celestial-map';
 
     return (
       <Link 
         to={targetPath} 
         className="group relative flex flex-col bg-[#111] border border-neutral-800 rounded-[2rem] p-8 hover:bg-[#151515] hover:border-neutral-600 transition-all duration-300 hover:-translate-y-1 shadow-lg h-full"
       >
+        {/* Tag Em Construção */}
+        {isUnderConstruction && (
+          <div className="absolute -top-3 -left-3 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg backdrop-blur-md">
+            🚧 Em construção
+          </div>
+        )}
+
+        {/* Badge de Destaque (Celestial Map) */}
         {project.featured && (
-          <div className="absolute -top-3 -right-3 bg-gradient-to-r from-blue-600 to-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">
-            Em Destaque
+          <div className="absolute -top-3 -right-3 bg-gradient-to-r from-blue-600 to-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg animate-pulse">
+            Destaque
           </div>
         )}
 
         <div className="flex-grow">
           <div className="flex items-center gap-3 mb-4">
-            {isDevTool ? (
+            {project.icon ? (
               <span className="text-3xl">{project.icon}</span>
             ) : (
               <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
@@ -113,39 +119,30 @@ const ProjectsPage: React.FC = () => {
 
   return (
     <div className="relative w-full min-h-screen py-12 px-6 overflow-hidden flex flex-col items-center">
+      {/* Luzes de Fundo */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
       <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-emerald-600/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
 
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col gap-16">
         <header className="flex flex-col items-center text-center mt-8">
           <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-white">
-            Meus <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Projetos</span>.
+            Explorar <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Projetos</span>.
           </h1>
           <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-            Uma seleção de aplicações em produção, arquiteturas de dados e ferramentas de código aberto.
+            Uma imersão em engenharia de dados, backend escalável e ferramentas interativas.
           </p>
         </header>
 
-        <section className="flex flex-col gap-8">
+        {/* Seção Única de Projetos */}
+        <section className="flex flex-col gap-8 mb-20">
           <div className="flex items-center gap-4">
-            <h2 className="text-3xl font-bold text-white">Projetos Portfólio</h2>
+            <h2 className="text-3xl font-bold text-white">Todos os Projetos</h2>
             <div className="h-[1px] flex-grow bg-gradient-to-r from-neutral-800 to-transparent"></div>
           </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {portfolioProjects.map((project) => (
+            {allProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-        </section>
-
-        <section className="flex flex-col gap-8">
-          <div className="flex items-center gap-4">
-            <h2 className="text-3xl font-bold text-white">Ferramentas & Apoio ao Dev</h2>
-            <div className="h-[1px] flex-grow bg-gradient-to-r from-neutral-800 to-transparent"></div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {devProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} isDevTool={true} />
             ))}
           </div>
         </section>
